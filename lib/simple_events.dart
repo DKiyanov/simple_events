@@ -2,7 +2,7 @@ library simple_events;
 
 import 'package:flutter/material.dart';
 
-typedef EventCallback<T> = Function(Listener listener, T? data);
+typedef EventCallback<T> = void Function(Listener listener, T? data);
 
 class Listener<T> {
   final EventBase event;
@@ -19,8 +19,8 @@ class Listener<T> {
 class EventBase<T> {
   final _listenerList = <Listener<T>>[];
 
-  Listener subscribe(EventCallback<T> callback, [Object? id]){
-    final listener = Listener(this, callback, id);
+  Listener<T> subscribe(EventCallback<T> callback, [Object? id]){
+    final listener = Listener<T>(this, callback, id);
 //    print('add ${listener.id}');
     _listenerList.add(listener);
     return listener;
